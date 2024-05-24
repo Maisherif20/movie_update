@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:telephony/telephony.dart';
-import 'package:untitled/presentation_layer/ui/homePage.dart';
+import 'package:untitled/presentation_layer/ui/homeScreen/homeScreen.dart';
 import 'package:untitled/presentation_layer/ui/otpScreen.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 import 'package:untitled/presentation_layer/ui/widgets/customTextField.dart';
@@ -155,7 +155,7 @@ class _AuthByPhoneScreenState extends State<AuthByPhoneScreen> {
           smsCode: otpCodeController.text.toString());
       FirebaseAuth.instance.signInWithCredential(credential).then((value) {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => HomePage()));
+            context, MaterialPageRoute(builder: (context) => HomeScreen()));
       });
     } catch (ex) {
       print(ex);

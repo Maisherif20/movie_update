@@ -1,9 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:untitled/data_layer/firebase/fiebaseErrorCode.dart';
+import 'package:untitled/presentation_layer/ui/homeScreen/homeScreen.dart';
 import 'package:untitled/presentation_layer/ui/loginScreen.dart';
-
-import '../../presentation_layer/ui/homePage.dart';
 
 class FirebaseAuthUser {
   static void register(String email, String password, BuildContext context) async {
@@ -27,7 +26,7 @@ class FirebaseAuthUser {
       var credential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
       print(credential.user?.uid);
-      Navigator.pushReplacementNamed(context, HomePage.routeName);
+      Navigator.pushReplacementNamed(context, HomeScreen.routeName);
     } on FirebaseAuthException catch (e) {
       print("error");
       if (e.code == FirebaseErrorCode.userNotFound) {

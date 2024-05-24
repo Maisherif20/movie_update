@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:telephony/telephony.dart';
 import 'package:untitled/presentation_layer/ui/authService.dart';
-import 'package:untitled/presentation_layer/ui/homePage.dart';
+import 'package:untitled/presentation_layer/ui/homeScreen/homeScreen.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -51,7 +51,7 @@ class _LoginPageState extends State<LoginPage>
         if (value == "Success") {
           Navigator.pop(context);
           Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => HomePage()));
+              context, MaterialPageRoute(builder: (context) => HomeScreen()));
         } else {
           Navigator.pop(context);
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(

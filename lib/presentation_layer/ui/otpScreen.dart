@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:untitled/presentation_layer/ui/homePage.dart';
+import 'package:untitled/presentation_layer/ui/homeScreen/homeScreen.dart';
 import 'package:untitled/presentation_layer/ui/widgets/customTextField.dart';
 import 'package:telephony/telephony.dart';
 class OtpCodeScreen extends StatefulWidget {
@@ -84,7 +84,7 @@ class _OtpCodeScreenState extends State<OtpCodeScreen> {
           .signInWithCredential(credential)
           .then((value) {
         Navigator.push(context,
-            MaterialPageRoute(builder: (context) => HomePage()));
+            MaterialPageRoute(builder: (context) => HomeScreen()));
       });
     } catch (ex) {
       print(ex);
