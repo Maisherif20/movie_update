@@ -45,10 +45,16 @@ dependencies:
   sms_autofill: ^2.3.1
   flutter_bloc: ^8.1.5
   flutter_screenutil: ^5.9.1
+  http: ^0.13.6
+  dartz: ^0.10.1
+  injectable: ^2.4.2
+  get_it: ^7.7.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  injectable_generator:
+  build_runner:
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

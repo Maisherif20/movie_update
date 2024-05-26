@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:untitled/DI/dI.dart';
 import 'package:untitled/presentation_layer/ui/homeScreen/homeScreenViewModel.dart';
 import 'package:untitled/presentation_layer/ui/tabs/browseTab/browseTab.dart';
 import 'package:untitled/presentation_layer/ui/tabs/homeTab/homeTab.dart';
+import 'package:untitled/presentation_layer/ui/tabs/homeTab/movies/popularMovies/popularMovieView.dart';
 import 'package:untitled/presentation_layer/ui/tabs/searchTab/searchTab.dart';
 import 'package:untitled/presentation_layer/ui/tabs/watchListTab/watchListTab.dart';
-
-
 class HomeScreen extends StatefulWidget {
   static const routeName  = "Home Screen";
   @override
@@ -14,14 +14,14 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  HomeScreenViewModel viewModel = HomeScreenViewModel();
+  HomeScreenViewModel homeScreenViemModel = getIt<HomeScreenViewModel>();
   int selectedIndex = 0;
   Widget tabPreview = HomeTab();
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomeScreenViewModel, HomeScreenState>(
-        bloc: viewModel,
+        bloc: homeScreenViemModel,
         builder: (BuildContext context, state) {
           if (state is HomeTabState) {
             tabPreview = HomeTab();
@@ -32,9 +32,8 @@ class _HomeScreenState extends State<HomeScreen> {
           } else if (state is WatchListTabState) {
             tabPreview = WatchListTab();
           }
-
           return Scaffold(
-            backgroundColor: Colors.transparent,
+            backgroundColor:  Color.fromRGBO(18, 18, 18, 1),
             appBar: AppBar(
               backgroundColor: Colors.black,
               elevation: 0,
@@ -68,13 +67,13 @@ class _HomeScreenState extends State<HomeScreen> {
               unselectedItemColor: Colors.white,
               onTap: (index) {
                 selectedIndex = index;
-                viewModel.getTabs(selectedIndex);
+                homeScreenViemModel.getTabs(selectedIndex);
               },
               currentIndex: selectedIndex,
               backgroundColor: const Color.fromRGBO(0, 65, 130, 1),
               items: [
                 BottomNavigationBarItem(
-                    backgroundColor: Colors.black,
+                    backgroundColor: Color.fromRGBO(26, 26, 26, 1),
                     icon: selectedIndex == 0
                         ? const ImageIcon(
                           AssetImage("assests/images/img.png" ),
@@ -84,7 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     label: "Home"),
                 BottomNavigationBarItem(
-                    backgroundColor: Colors.black,
+                    backgroundColor: Color.fromRGBO(26, 26, 26, 1),
                     icon: selectedIndex == 1
                         ? const ImageIcon(
                           AssetImage("assests/images/img_1.png"),
@@ -94,14 +93,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     label: "Search"),
                 BottomNavigationBarItem(
-                    backgroundColor: Colors.black,
+                    backgroundColor: Color.fromRGBO(26, 26, 26, 1),
                     icon: selectedIndex == 2
                         ? const ImageIcon(
                             AssetImage("assests/images/img_2.png"),)
-                        : ImageIcon(AssetImage("assests/images/img_2.png"),),
+                        : const ImageIcon(AssetImage("assests/images/img_2.png"),),
                     label: "Browse"),
                 BottomNavigationBarItem(
-                    backgroundColor: Colors.black,
+                    backgroundColor: Color.fromRGBO(26, 26, 26, 1),
                     icon: selectedIndex == 3
                         ? const ImageIcon(
                           AssetImage(
