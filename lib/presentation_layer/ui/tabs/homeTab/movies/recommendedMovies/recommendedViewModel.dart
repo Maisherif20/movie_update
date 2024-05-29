@@ -23,19 +23,6 @@ class RecommendedMovieViewModel extends Cubit<RecommendedState> {
       emit(RecommendedMoviesErrorState(errorMessage: e.toString()));
     }
   }
-// void newReleaseMovies() async {
-//   emit(LoadingState());
-//   var newReleaseMovies = await newReleaseMoviesUseCase.invoke();
-//   try {
-//     newReleaseMovies.fold((response) {
-//       emit(SuccessState(moviesEntity: response));
-//     }, (error) {
-//       emit(ErrorState(errorMessage: error));
-//     });
-//   } catch (e) {
-//     emit(ErrorState(errorMessage: e.toString()));
-//   }
-// }
 }
 
 sealed class RecommendedState {}

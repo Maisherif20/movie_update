@@ -1,8 +1,12 @@
+import 'package:untitled/data_layer/models/movieDetailsResponse/DetailsResponse.dart';
+import 'package:untitled/domain_layer/entities/DetailsEntity/DetailsEntity.dart';
+
 import 'ResultEntity.dart';
 
 class MoviesEntity {
   MoviesEntity({
     this.page,
+    this.detailsEntity,
     this.message,
     this.statusMsg,
     this.resultEntity,
@@ -23,6 +27,7 @@ class MoviesEntity {
   // }
   num? page;
   String? statusMsg;
+  DetailsEntity? detailsEntity;
   String? message;
   List<ResultEntity>? resultEntity;
   num? totalPages;

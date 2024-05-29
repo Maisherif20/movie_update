@@ -1,9 +1,12 @@
+import 'package:untitled/data_layer/models/movieDetailsResponse/DetailsResponse.dart';
+
 import '../../../domain_layer/entities/MoviesEntity/MoviesEntity.dart';
 import 'Results.dart';
 
 class MovieResponse {
   MovieResponse({
     this.page,
+    this.detailsResponse,
     this.message,
     this.statusMsg,
     this.results,
@@ -13,6 +16,7 @@ class MovieResponse {
 
   MovieResponse.fromJson(dynamic json) {
     page = json['page'];
+    detailsResponse = json['detailsResponse'];
     statusMsg = json['statusMsg'];
     message = json['message'];
     if (json['results'] != null) {
@@ -26,6 +30,7 @@ class MovieResponse {
   }
   num? page;
   String? statusMsg;
+  DetailsResponse? detailsResponse;
   String? message;
   List<Results>? results;
   num? totalPages;
@@ -40,6 +45,7 @@ class MovieResponse {
       map['results'] = results?.map((v) => v.toJson()).toList();
     }
     map['total_pages'] = totalPages;
+    map['detailsResponse'] = detailsResponse;
     map['total_results'] = totalResults;
     return map;
   }
@@ -51,6 +57,7 @@ class MovieResponse {
       message: message,
       totalPages: totalPages,
       totalResults: totalResults,
+      detailsEntity: detailsResponse?.toDetailsEntity(),
       resultEntity: results?.map((e) => e.toResultEntity()).toList(),
     );
   }

@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:untitled/data_layer/dataSourceContract/moviesDataSource.dart';
+import 'package:untitled/domain_layer/entities/DetailsEntity/DetailsEntity.dart';
 import 'package:untitled/domain_layer/reposatoryContract/moviesReposatory.dart';
 
 import '../../domain_layer/entities/MoviesEntity/MoviesEntity.dart';
@@ -39,4 +40,23 @@ class MoviesReposatoryImpl extends MoviesReposatory{
     });
   }
 
+  @override
+  Future<Either<DetailsEntity, String>> getdMoviesDetails(String movieId) async{
+    var result = await moviesDataSource.getMoviesDetails(movieId);
+    return result.fold((response) {
+      return left(response.toDetailsEntity());
+    }, (error) {
+      return right(error);
+    });
+  }
+
+  @override
+  Future<Either<MoviesEntity, String>> getMoreLike(String movieId) async{
+    var result = await moviesDataSource.getMoreLike(movieId);
+    return result.fold((response) {
+      return left(response.toMoviesEntity());
+    }, (error) {
+      return right(error);
+    });
+  }
 }

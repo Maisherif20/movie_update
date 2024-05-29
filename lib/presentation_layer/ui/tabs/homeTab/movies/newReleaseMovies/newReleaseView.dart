@@ -53,10 +53,7 @@ class _NewReleaseMovieViewState extends State<NewReleaseMovieView> {
                           itemBuilder: (context, index) {
                             return Padding(
                               padding: const EdgeInsets.all(5.0),
-                              child: NewReleaseWidget(imagePoster: newReleaseMovie.resultEntity![index].posterPath ?? "No image",
-                                id: newReleaseMovie.resultEntity![index].id.toString() ?? "No Id",
-                                title:newReleaseMovie.resultEntity![index].title ?? "No title" ,
-                                releaseDate: newReleaseMovie.resultEntity![index].releaseDate ?? "No releaseDate",
+                              child: NewReleaseWidget(moviesEntity: newReleaseMovie, index: index,
                               ),
                             );
                           })),

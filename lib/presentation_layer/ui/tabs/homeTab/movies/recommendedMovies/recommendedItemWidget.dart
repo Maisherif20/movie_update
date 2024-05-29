@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:untitled/constants/Constant.dart';
 
+import '../../../../../../domain_layer/entities/MoviesEntity/MoviesEntity.dart';
+import '../moviesDetails/detailsScreen.dart';
+import '../moviesDetails/detailsView.dart';
+
 class RecommendedItemWidget extends StatefulWidget {
   //var resultList = snapshot.data?.results;
   String imagePoster;
@@ -9,13 +13,17 @@ class RecommendedItemWidget extends StatefulWidget {
   String releaseDate;
   String id;
   String rate;
+  MoviesEntity moviesEntity;
+  int index;
 
   RecommendedItemWidget(
       {required this.imagePoster,
       required this.id,
       required this.title,
       required this.releaseDate,
-      required this.rate});
+      required this.rate,
+      required this.moviesEntity,
+      required this.index});
 
   @override
   State<RecommendedItemWidget> createState() => _RecommendedItemWidgetState();
@@ -49,13 +57,19 @@ class _RecommendedItemWidgetState extends State<RecommendedItemWidget> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        // Navigator.of(context).push(MaterialPageRoute(
-        //     builder: (context) => DetailesScreen(id: widget.id)));
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => DetailsView(
+                  id: widget.moviesEntity.resultEntity![widget.index].id
+                      .toString(),
+                  description: widget
+                          .moviesEntity.resultEntity![widget.index].overview ??
+                      "",
+                )));
       },
       child: Container(
         color: Color.fromRGBO(52, 53, 52, 1),
         child: Padding(
-          padding: const EdgeInsets.only(bottom: 5 ),
+          padding: const EdgeInsets.only(bottom: 5),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -123,7 +137,7 @@ class _RecommendedItemWidgetState extends State<RecommendedItemWidget> {
                     ),
                     Text(
                       widget.rate,
-                      style: TextStyle(color: Colors.white , fontSize: 12),
+                      style: TextStyle(color: Colors.white, fontSize: 12),
                     ),
                   ],
                 ),
@@ -134,13 +148,13 @@ class _RecommendedItemWidgetState extends State<RecommendedItemWidget> {
                     width: 100.w,
                     child: Text(widget.title,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(color: Colors.white , fontSize: 12))),
+                        style: TextStyle(color: Colors.white, fontSize: 12))),
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 5),
                 child: Text(widget.releaseDate,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(color: Colors.white , fontSize: 12)),
+                    style: TextStyle(color: Colors.white, fontSize: 12)),
               ),
             ],
           ),

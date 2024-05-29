@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:untitled/DI/dI.dart';
 import 'package:untitled/constants/Constant.dart';
-class NewReleaseWidget extends StatefulWidget {
-  //var resultList = snapshot.data?.results;
-  String imagePoster;
-  String title;
-  String releaseDate;
-  String id;
+import 'package:untitled/presentation_layer/ui/tabs/homeTab/movies/moviesDetails/detailsScreen.dart';
+import 'package:untitled/presentation_layer/ui/tabs/homeTab/movies/moviesDetails/detailsViewModel.dart';
 
+import '../../../../../../domain_layer/entities/MoviesEntity/MoviesEntity.dart';
+import '../../../../../../domain_layer/entities/MoviesEntity/ResultEntity.dart';
+import '../moviesDetails/detailsView.dart';
+class NewReleaseWidget extends StatefulWidget {
+  // ResultEntity resultEntity;
+MoviesEntity moviesEntity;
+int index;
   NewReleaseWidget(
-      {required this.imagePoster,
-        required this.id,
-        required this.title,
-        required this.releaseDate});
+      { required this.moviesEntity , required this.index});
 
   @override
   State<NewReleaseWidget> createState() => _NewReleaseWidgetState();
@@ -20,6 +21,7 @@ class NewReleaseWidget extends StatefulWidget {
 
 class _NewReleaseWidgetState extends State<NewReleaseWidget> {
   bool isAddedToWatchlist = false;
+  // DetailsViewModel detailsViewModel = getIt<DetailsViewModel>();
   //
   // late SharedPreferences _prefs;
   //
@@ -46,13 +48,13 @@ class _NewReleaseWidgetState extends State<NewReleaseWidget> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        // Navigator.of(context).push(MaterialPageRoute(
-        //     builder: (context) => DetailesScreen(id: widget.id)));
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => DetailsView(id: widget.moviesEntity.resultEntity![widget.index].id.toString(), description: widget.moviesEntity.resultEntity![widget.index].overview ??"",)));
       },
       child: Stack(
         // alignment: Alignment.topLeft,
           children: [
-            Image.network('${Constant.imagePath}${widget.imagePoster}' ,width: 100.w,),
+            Image.network('${Constant.imagePath}${widget.moviesEntity.resultEntity![widget.index].posterPath!}' ,width: 100.w,),
             InkWell(
               onTap: () async {
                 // setState(() {

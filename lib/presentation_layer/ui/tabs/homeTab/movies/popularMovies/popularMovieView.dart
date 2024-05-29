@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:untitled/presentation_layer/ui/tabs/homeTab/movies/moviesDetails/detailsView.dart';
 import 'package:untitled/presentation_layer/ui/tabs/homeTab/movies/popularMovies/PopularMoviesWidget.dart';
 import 'package:untitled/presentation_layer/ui/tabs/homeTab/movies/popularMovies/popularMovieViewModel.dart';
 import '../../../../../../DI/dI.dart';
+import '../moviesDetails/detailsScreen.dart';
+
 
 class PopularMovieView extends StatefulWidget {
   const PopularMovieView({super.key});
@@ -48,18 +51,24 @@ class _PopularMovieViewState extends State<PopularMovieView> {
                         scrollDirection: Axis.horizontal,
                         itemCount: popularMovie.resultEntity!.length,
                         itemBuilder: (context, index) {
-                          return PopularMoviesWidget(
-                            title: popularMovie.resultEntity![index].title ??
-                                "No Title",
-                            imagePoster: popularMovie
-                                    .resultEntity![index].posterPath ??
-                                "No posterPath",
-                            releaseDate: popularMovie
-                                    .resultEntity![index].releaseDate ??
-                                "No releaseDate",
-                            imageBack: popularMovie
-                                    .resultEntity![index].backdropPath ??
-                                "No releaseDate",
+                          return InkWell(
+                            onTap: (){
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => DetailsView(id: popularMovie.resultEntity![index].id.toString(), description: popularMovie.resultEntity![index].overview ??"",)));
+                            },
+                            child: PopularMoviesWidget(
+                              title: popularMovie.resultEntity![index].title ??
+                                  "No Title",
+                              imagePoster: popularMovie
+                                      .resultEntity![index].posterPath ??
+                                  "No posterPath",
+                              releaseDate: popularMovie
+                                      .resultEntity![index].releaseDate ??
+                                  "No releaseDate",
+                              imageBack: popularMovie
+                                      .resultEntity![index].backdropPath ??
+                                  "No releaseDate",
+                            ),
                           );
                         }));
               }
