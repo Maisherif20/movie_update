@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:untitled/domain_layer/entities/DetailsEntity/DetailsEntity.dart';
-import 'package:untitled/domain_layer/reposatoryContract/moviesReposatory.dart';
+import 'package:untitled/domain_layer/reposatoryContract/moviesRepository.dart';
 
 @injectable
 class MoviesDetailsUseCase{

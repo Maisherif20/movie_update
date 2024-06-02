@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:untitled/data_layer/api_manager/api_manager.dart';
-import 'package:untitled/data_layer/dataSourceContract/moviesDataSource.dart';
+import 'package:untitled/data_layer/dataSourceContract/movies_data_source.dart';
 import 'package:untitled/data_layer/models/movieDetailsResponse/DetailsResponse.dart';
 
 import '../models/MoviesResponse/MovieResponse.dart';
