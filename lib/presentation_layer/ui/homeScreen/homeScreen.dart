@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:untitled/DI/dI.dart';
 import 'package:untitled/presentation_layer/ui/homeScreen/homeScreenViewModel.dart';
-import 'package:untitled/presentation_layer/ui/tabs/browseTab/browseTab.dart';
+import 'package:untitled/presentation_layer/ui/tabs/browseTab/browse_tab_view.dart';
 import 'package:untitled/presentation_layer/ui/tabs/homeTab/homeTab.dart';
 import 'package:untitled/presentation_layer/ui/tabs/homeTab/movies/popularMovies/popularMovieView.dart';
 import 'package:untitled/presentation_layer/ui/tabs/searchTab/searchTab.dart';

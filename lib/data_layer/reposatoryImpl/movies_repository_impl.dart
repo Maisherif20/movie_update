@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
-import 'package:untitled/data_layer/dataSourceContract/moviesDataSource.dart';
+import 'package:untitled/data_layer/dataSourceContract/movies_data_source.dart';
 import 'package:untitled/domain_layer/entities/DetailsEntity/DetailsEntity.dart';
-import 'package:untitled/domain_layer/reposatoryContract/moviesReposatory.dart';
+import 'package:untitled/domain_layer/reposatoryContract/moviesRepository.dart';
 
 import '../../domain_layer/entities/MoviesEntity/MoviesEntity.dart';
 @Injectable(as:MoviesReposatory)
