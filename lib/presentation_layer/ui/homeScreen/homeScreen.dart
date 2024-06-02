@@ -6,7 +6,8 @@ import 'package:untitled/presentation_layer/ui/tabs/homeTab/homeTab.dart';
 import 'package:untitled/presentation_layer/ui/tabs/searchTab/searchTab.dart';
 import 'package:untitled/presentation_layer/ui/tabs/watchListTab/watchListTab.dart';
 
-import '../tabs/browseTab/browseTab.dart';
+import '../tabs/browseTab/browse_tab_view.dart';
+
 class HomeScreen extends StatefulWidget {
   static const routeName  = "Home Screen";
   @override

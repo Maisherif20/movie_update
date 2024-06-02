@@ -15,27 +15,27 @@ import '../data_layer/api_manager/api_manager.dart' as _i4;
 import '../data_layer/dataSourceContract/browseDataSource/genres_movies_data_source.dart'
     as _i16;
 import '../data_layer/dataSourceContract/browseDataSource/movie_genre_list_data_source.dart'
-    as _i8;
-import '../data_layer/dataSourceContract/moviesDataSource.dart' as _i6;
+    as _i6;
+import '../data_layer/dataSourceContract/movies_data_source.dart' as _i8;
 import '../data_layer/dataSourceContract/watch_list_data_source.dart' as _i10;
 import '../data_layer/dataSourceImpl/browseDataSourceImpl/genres_movies_data_source_impl.dart'
     as _i17;
 import '../data_layer/dataSourceImpl/browseDataSourceImpl/movie_genre_list_data_source_impl.dart'
-    as _i9;
-import '../data_layer/dataSourceImpl/moviesDataSourceImpl.dart' as _i7;
+    as _i7;
+import '../data_layer/dataSourceImpl/movies_data_source_impl.dart' as _i9;
 import '../data_layer/dataSourceImpl/watchListDataSourceImpl.dart' as _i11;
 import '../data_layer/firebase/firestore.dart' as _i5;
 import '../data_layer/reposatoryImpl/browseRepositoryImpl/genres_movies_repository_impl.dart'
     as _i21;
 import '../data_layer/reposatoryImpl/browseRepositoryImpl/movie_genre_list_repository_impl.dart'
     as _i15;
-import '../data_layer/reposatoryImpl/moviesReposatoryImpl.dart' as _i19;
+import '../data_layer/reposatoryImpl/movies_repository_impl.dart' as _i19;
 import '../data_layer/reposatoryImpl/watchListRepositoryImpl.dart' as _i13;
 import '../domain_layer/reposatoryContract/browseRepository/genres_movies_repository.dart'
     as _i20;
 import '../domain_layer/reposatoryContract/browseRepository/movie_genre_list_repository.dart'
     as _i14;
-import '../domain_layer/reposatoryContract/moviesReposatory.dart' as _i18;
+import '../domain_layer/reposatoryContract/moviesRepository.dart' as _i18;
 import '../domain_layer/reposatoryContract/watchListRepository.dart' as _i12;
 import '../domain_layer/useCase/browseUseCase/genres_movies_use_case.dart'
     as _i35;
@@ -100,21 +100,21 @@ extension GetItInjectableX on _i1.GetIt {
     gh.factory<_i3.HomeScreenViewModel>(() => _i3.HomeScreenViewModel());
     gh.singleton<_i4.ApiManager>(() => _i4.ApiManager());
     gh.singleton<_i5.Firestore>(() => _i5.Firestore());
-    gh.factory<_i6.MoviesDataSource>(
-        () => _i7.MoviesDataSourceImpl(apiManager: gh<_i4.ApiManager>()));
-    gh.factory<_i8.MovieGenreListDataSource>(() =>
-        _i9.MovieGenreListDataSourceImpl(apiManager: gh<_i4.ApiManager>()));
+    gh.factory<_i6.MovieGenreListDataSource>(() =>
+        _i7.MovieGenreListDataSourceImpl(apiManager: gh<_i4.ApiManager>()));
+    gh.factory<_i8.MoviesDataSource>(
+        () => _i9.MoviesDataSourceImpl(apiManager: gh<_i4.ApiManager>()));
     gh.factory<_i10.WatchListDataSource>(
         () => _i11.WatchListDataSourceImpl(firestore: gh<_i5.Firestore>()));
     gh.factory<_i12.WatchListRepository>(() => _i13.WatchListRepositoryImpl(
         watchListDataSource: gh<_i10.WatchListDataSource>()));
     gh.factory<_i14.MovieGenreListRepository>(() =>
         _i15.MovieGenreLIstRepositoryImpl(
-            movieGenreListDataSource: gh<_i8.MovieGenreListDataSource>()));
+            movieGenreListDataSource: gh<_i6.MovieGenreListDataSource>()));
     gh.factory<_i16.GenresMoviesDataSource>(() =>
         _i17.GenresMoviesDataSourceImpl(apiManager: gh<_i4.ApiManager>()));
     gh.factory<_i18.MoviesReposatory>(() => _i19.MoviesReposatoryImpl(
-        moviesDataSource: gh<_i6.MoviesDataSource>()));
+        moviesDataSource: gh<_i8.MoviesDataSource>()));
     gh.factory<_i20.GenresMoviesRepository>(() =>
         _i21.GenresMoviesRepositoryImpl(
             genresMoviesDataSource: gh<_i16.GenresMoviesDataSource>()));
