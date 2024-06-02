@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:untitled/DI/dI.dart';
 import 'package:untitled/presentation_layer/ui/homeScreen/homeScreenViewModel.dart';
-import 'package:untitled/presentation_layer/ui/tabs/browseTab/browseTab.dart';
 import 'package:untitled/presentation_layer/ui/tabs/homeTab/homeTab.dart';
-import 'package:untitled/presentation_layer/ui/tabs/homeTab/movies/popularMovies/popularMovieView.dart';
 import 'package:untitled/presentation_layer/ui/tabs/searchTab/searchTab.dart';
 import 'package:untitled/presentation_layer/ui/tabs/watchListTab/watchListTab.dart';
+
+import '../tabs/browseTab/browseTab.dart';
 class HomeScreen extends StatefulWidget {
   static const routeName  = "Home Screen";
   @override
@@ -28,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
           } else if (state is SearchTabState) {
             tabPreview = SearchTab();
           } else if (state is BrowseTabState) {
-            tabPreview = BrowseTab();
+            tabPreview = BrowseTabView();
           } else if (state is WatchListTabState) {
             tabPreview = WatchListTab();
           }

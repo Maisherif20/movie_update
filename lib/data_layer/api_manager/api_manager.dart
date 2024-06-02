@@ -4,6 +4,8 @@ import 'package:untitled/constants/Constant.dart';
 import 'package:http/http.dart' as http;
 import 'package:untitled/data_layer/models/movieDetailsResponse/DetailsResponse.dart';
 
+import '../Models/genresResponse/GenresResponse.dart';
+import '../Models/movieDiscoverResponse/MovieDiscoverResponse.dart';
 import '../models/MoviesResponse/MovieResponse.dart';
 @singleton
 @injectable
@@ -52,5 +54,25 @@ class ApiManager{
     var json = jsonDecode(response.body);
     MovieResponse movieResponse = MovieResponse.fromJson(json);
     return movieResponse;
+  }
+
+  Future<GenresResponse>getGenresMovies()async{
+    var uri=Uri.https(Constant.baseUrl , "/3/genre/movie/list",{
+      "api_key":Constant.apiKey
+    });
+    var response = await http.get(uri);
+    var json = jsonDecode(response.body);
+    GenresResponse genresMovies = GenresResponse.fromJson(json);
+    return genresMovies;
+  }
+  Future<MovieDiscoverResponse> getMovieGenreList(int withGenres)async{
+    var uri=Uri.https(Constant.baseUrl , "/3/discover/movie",{
+      "api_key":Constant.apiKey,
+      "with_genres":withGenres.toString(),
+    });
+    var response = await http.get(uri);
+    var json = jsonDecode(response.body);
+    MovieDiscoverResponse movieGenreList = MovieDiscoverResponse.fromJson(json);
+    return movieGenreList;
   }
 }
