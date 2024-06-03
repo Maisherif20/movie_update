@@ -57,6 +57,9 @@ class _PopularMovieViewState extends State<PopularMovieView> {
                                   builder: (context) => DetailsView(id: popularMovie.resultEntity![index].id.toString(), description: popularMovie.resultEntity![index].overview ??"",)));
                             },
                             child: PopularMoviesWidget(
+                              id: popularMovie.resultEntity![index].id
+                                      .toString() ??
+                                  "No Id",
                               title: popularMovie.resultEntity![index].title ??
                                   "No Title",
                               imagePoster: popularMovie

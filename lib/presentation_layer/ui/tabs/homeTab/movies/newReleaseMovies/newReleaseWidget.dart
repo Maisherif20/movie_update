@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:untitled/DI/dI.dart';
 import 'package:untitled/constants/Constant.dart';
-import 'package:untitled/presentation_layer/ui/tabs/homeTab/movies/moviesDetails/detailsScreen.dart';
-import 'package:untitled/presentation_layer/ui/tabs/homeTab/movies/moviesDetails/detailsViewModel.dart';
 
+import '../../../../../../data_layer/Models/WatchList/movie.dart';
 import '../../../../../../domain_layer/entities/MoviesEntity/MoviesEntity.dart';
-import '../../../../../../domain_layer/entities/MoviesEntity/ResultEntity.dart';
+import '../../../../../../generated/assets.dart';
+import '../../../watchListTab/watchListViewModels/addWatchListViewModel.dart';
+import '../../../watchListTab/watchListViewModels/updateMovieViewModel.dart';
 import '../moviesDetails/detailsView.dart';
+
 class NewReleaseWidget extends StatefulWidget {
   // ResultEntity resultEntity;
-MoviesEntity moviesEntity;
-int index;
-  NewReleaseWidget(
-      { required this.moviesEntity , required this.index});
+  MoviesEntity moviesEntity;
+  int index;
+
+  NewReleaseWidget({required this.moviesEntity, required this.index});
 
   @override
   State<NewReleaseWidget> createState() => _NewReleaseWidgetState();
@@ -21,69 +24,84 @@ int index;
 
 class _NewReleaseWidgetState extends State<NewReleaseWidget> {
   bool isAddedToWatchlist = false;
-  // DetailsViewModel detailsViewModel = getIt<DetailsViewModel>();
-  //
-  // late SharedPreferences _prefs;
-  //
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _loadWatchlistState();
-  // }
-  //
-  // Future<void> _loadWatchlistState() async {
-  //   _prefs = await SharedPreferences.getInstance();
-  //   setState(() {
-  //     isAddedToWatchlist = _prefs.getBool(widget.id) ??
-  //         false; // Load watchlist state from SharedPreferences
-  //   });
-  // }
+  AddWatchListViewModel addWatchListViewModel = getIt<AddWatchListViewModel>();
+  UpdateMovieViewModel updateMovieViewModel = getIt<UpdateMovieViewModel>();
+  late SharedPreferences _prefs;
 
-  // Future<void> _saveWatchlistState() async {
-  //   await _prefs.setBool(widget.id,
-  //       isAddedToWatchlist); // Save watchlist state to SharedPreferences
-  // }
+  @override
+  void initState() {
+    super.initState();
+    _loadWatchlistState();
+  }
+
+  Future<void> _loadWatchlistState() async {
+    _prefs = await SharedPreferences.getInstance();
+    setState(() {
+      isAddedToWatchlist = _prefs.getBool(
+              widget.moviesEntity.resultEntity![widget.index].id.toString()) ??
+          false; // Load watchlist state from SharedPreferences
+    });
+  }
+
+  Future<void> _saveWatchlistState() async {
+    await _prefs.setBool(
+        widget.moviesEntity.resultEntity![widget.index].id.toString(),
+        isAddedToWatchlist); // Save watchlist state to SharedPreferences
+  }
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => DetailsView(id: widget.moviesEntity.resultEntity![widget.index].id.toString(), description: widget.moviesEntity.resultEntity![widget.index].overview ??"",)));
+            builder: (context) => DetailsView(
+                  id: widget.moviesEntity.resultEntity![widget.index].id
+                      .toString(),
+                  description: widget
+                          .moviesEntity.resultEntity![widget.index].overview ??
+                      "",
+                )));
       },
       child: Stack(
-        // alignment: Alignment.topLeft,
+          // alignment: Alignment.topLeft,
           children: [
             Image.network('${Constant.imagePath}${widget.moviesEntity.resultEntity![widget.index].posterPath!}' ,width: 100.w,),
             InkWell(
               onTap: () async {
-                // setState(() {
-                //   isAddedToWatchlist = !isAddedToWatchlist;
-                // });
-                // await _saveWatchlistState();
-                // if (isAddedToWatchlist) {
-                //   Movie movie = Movie(
-                //     id: widget.id,
-                //     title: widget.title,
-                //     posterImagePath: widget.imagePoster,
-                //     releaseData: widget.releaseDate,
-                //     isSelected: true,
-                //   );
-                //   // isFav=  await MovieDao.checkInFireBase(movie.id!) ;
-                //   await MovieDao.addMovieToFireBase(movie, widget.id);
-                //   await MovieDao.updateMovie(movie);
-                // }
+                setState(() {
+                  isAddedToWatchlist = !isAddedToWatchlist;
+                });
+                await _saveWatchlistState();
+                if (isAddedToWatchlist) {
+                  Movie movie = Movie(
+                    id: widget.moviesEntity.resultEntity![widget.index].id
+                        .toString(),
+                    title:
+                        widget.moviesEntity.resultEntity![widget.index].title,
+                    posterImagePath: widget
+                        .moviesEntity.resultEntity![widget.index].posterPath,
+                    releaseData: widget
+                        .moviesEntity.resultEntity![widget.index].releaseDate,
+                    isSelected: true,
+                  );
+                  // isFav=  await MovieDao.checkInFireBase(movie.id!) ;
+                  await addWatchListViewModel.addToWatchList(
+                      movie: movie,
+                      id: widget.moviesEntity.resultEntity![widget.index].id
+                          .toString());
+                  await updateMovieViewModel.updateMovie(movie: movie);
+                }
               },
               child: Stack(
                 children: [
                   isAddedToWatchlist
                       ? Image.asset(
-                    "assests/images/img_4.png",
+                    Assets.imagesImg5,
                     height: 36,
                     width: 28,
                   )
                       : Image.asset(
-                    "assests/images/img_4.png",
+                    Assets.imagesImg4,
                     height: 36,
                     width: 28,
                   ),

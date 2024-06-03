@@ -1,28 +1,62 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:untitled/constants/Constant.dart';
+
+import '../../../../../../DI/dI.dart';
+import '../../../../../../data_layer/Models/WatchList/movie.dart';
+import '../../../../../../generated/assets.dart';
+import '../../../watchListTab/watchListViewModels/addWatchListViewModel.dart';
+import '../../../watchListTab/watchListViewModels/updateMovieViewModel.dart';
+
 class PopularMoviesWidget extends StatefulWidget {
   String title;
   String imagePoster;
   String imageBack;
   String releaseDate;
+  String id;
+
   PopularMoviesWidget(
-      {required this.title, required this.imagePoster, required this.releaseDate  , required this.imageBack });
+      {required this.title, required this.imagePoster, required this.releaseDate, required this.imageBack, required this.id,});
 
   @override
   State<PopularMoviesWidget> createState() => _PopularMoviesWidgetState();
 }
 
 class _PopularMoviesWidgetState extends State<PopularMoviesWidget> {
-  bool isSelected = false;
+  bool isAddedToWatchlist = false;
+  AddWatchListViewModel addWatchListViewModel = getIt<AddWatchListViewModel>();
+  UpdateMovieViewModel updateMovieViewModel = getIt<UpdateMovieViewModel>();
+
+  //
+  late SharedPreferences _prefs;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadWatchlistState();
+  }
+
+  Future<void> _loadWatchlistState() async {
+    _prefs = await SharedPreferences.getInstance();
+    setState(() {
+      isAddedToWatchlist = _prefs.getBool(widget.id) ??
+          false; // Load watchlist state from SharedPreferences
+    });
+  }
+
+  Future<void> _saveWatchlistState() async {
+    await _prefs.setBool(widget.id,
+        isAddedToWatchlist); // Save watchlist state to SharedPreferences
+  }
 
   @override
   Widget build(BuildContext context) {
-    return  Container(
+    return Container(
       decoration: const BoxDecoration(
         color: Color.fromRGBO(18, 18, 18, 1),
       ),
-      padding: const EdgeInsets.only(left: 10, right: 10 , top: 10),
+      padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
       width: 420.w,
       height: 289.h,
       child: Stack(
@@ -73,16 +107,40 @@ class _PopularMoviesWidgetState extends State<PopularMoviesWidget> {
                   left: 7.sp,
                   child: InkWell(
                     onTap: ()async{
-                      // isSelected = true;
-                      // Movie movie = Movie(title: widget.title , posterImagePath: widget.imagePoster, releaseData: widget.releaseDate);
-                      // await MovieDao.addMovieToFireBase(movie);
                       setState(() {
+                        isAddedToWatchlist = !isAddedToWatchlist;
                       });
+                      await _saveWatchlistState();
+                      if (isAddedToWatchlist) {
+                        Movie movie = Movie(
+                          id: widget.id,
+                          title: widget.title,
+                          posterImagePath: widget.imagePoster,
+                          releaseData: widget.releaseDate,
+                          isSelected: true,
+                        );
+                        // isFav=  await MovieDao.checkInFireBase(movie.id!) ;
+                        await addWatchListViewModel.addToWatchList(
+                            movie: movie, id: widget.id);
+                        // await MovieDao.addMovieToFireBase(movie, widget.id);
+                        await updateMovieViewModel.updateMovie(movie: movie);
+                        // await MovieDao.updateMovie(movie);
+                      }
                     },
                     child: Stack(children: [
-                      Image.asset(isSelected==false?"assests/images/img_4.png":"assests/images/img_3.png" , height: 36.h , width: 28.w,),
+                      Image.asset(
+                        isAddedToWatchlist
+                            ? Assets.imagesImg5
+                            : Assets.imagesImg4,
+                        height: 36.h,
+                        width: 28.w,
+                      ),
                       // Icon(Icons.bookmark , size: 50, color: isSelected==false?Color.fromRGBO(81, 79, 79, 1):Color.fromRGBO(247, 181, 57, 1),),
-                      Icon(isSelected==false?Icons.add:Icons.check , color: Colors.white,size: 25,)
+                      Icon(
+                        isAddedToWatchlist ? Icons.check : Icons.add,
+                        color: Colors.white,
+                        size: 25,
+                      )
                     ],
                     ),
                   ),
