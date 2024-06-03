@@ -81,4 +81,18 @@ class MoviesDataSourceImpl extends MoviesDataSource {
       return Right(e.toString()); // error from server
     }
   }
+
+  @override
+  Future<Either<MovieResponse, String>> searchForMovie(String query) async {
+    try {
+      var response = await apiManager.searchForMovie(query);
+      if (response.statusMsg != null) {
+        return Right(response.message!);
+      } else {
+        return Left(response);
+      }
+    } catch (e) {
+      return Right(e.toString()); // error from server
+    }
+  }
 }

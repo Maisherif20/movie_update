@@ -7,5 +7,7 @@ abstract class MoviesReposatory{
   Future<Either<MoviesEntity , String>> getNewReleaseMovies();
   Future<Either<MoviesEntity , String>> getRecommendedMovies();
   Future<Either<MoviesEntity , String>> getMoreLike(String movieId);
-  Future<Either<DetailsEntity , String>> getdMoviesDetails(String movieId);
+  Future<Either<DetailsEntity, String>> getdMoviesDetails(String movieId);
+
+  Future<Either<MoviesEntity, String>> searchForMovie(String query);
 }

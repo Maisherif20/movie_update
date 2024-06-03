@@ -65,14 +65,26 @@ class ApiManager{
     GenresResponse genresMovies = GenresResponse.fromJson(json);
     return genresMovies;
   }
-  Future<MovieDiscoverResponse> getMovieGenreList(int withGenres)async{
-    var uri=Uri.https(Constant.baseUrl , "/3/discover/movie",{
-      "api_key":Constant.apiKey,
-      "with_genres":withGenres.toString(),
+
+  Future<MovieDiscoverResponse> getMovieGenreList(int withGenres) async {
+    var uri = Uri.https(Constant.baseUrl, "/3/discover/movie", {
+      "api_key": Constant.apiKey,
+      "with_genres": withGenres.toString(),
     });
     var response = await http.get(uri);
     var json = jsonDecode(response.body);
     MovieDiscoverResponse movieGenreList = MovieDiscoverResponse.fromJson(json);
     return movieGenreList;
+  }
+
+  Future<MovieResponse> searchForMovie(String query) async {
+    var uri = Uri.https(Constant.baseUrl, "/3/search/movie", {
+      "api_key": Constant.apiKey,
+      "query": query,
+    });
+    var response = await http.get(uri);
+    var json = jsonDecode(response.body);
+    MovieResponse movieResponse = MovieResponse.fromJson(json);
+    return movieResponse;
   }
 }

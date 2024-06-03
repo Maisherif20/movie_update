@@ -9,4 +9,6 @@ abstract class MoviesDataSource {
   Future<Either<MovieResponse, String>> getRecommendedMovies();
   Future<Either<MovieResponse, String>> getMoreLike(String movieId);
   Future<Either<DetailsResponse, String>> getMoviesDetails(String movieId);
+
+  Future<Either<MovieResponse, String>> searchForMovie(String query);
 }

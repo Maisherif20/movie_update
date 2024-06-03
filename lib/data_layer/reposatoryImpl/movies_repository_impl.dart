@@ -51,8 +51,18 @@ class MoviesReposatoryImpl extends MoviesReposatory{
   }
 
   @override
-  Future<Either<MoviesEntity, String>> getMoreLike(String movieId) async{
+  Future<Either<MoviesEntity, String>> getMoreLike(String movieId) async {
     var result = await moviesDataSource.getMoreLike(movieId);
+    return result.fold((response) {
+      return left(response.toMoviesEntity());
+    }, (error) {
+      return right(error);
+    });
+  }
+
+  @override
+  Future<Either<MoviesEntity, String>> searchForMovie(String query) async {
+    var result = await moviesDataSource.searchForMovie(query);
     return result.fold((response) {
       return left(response.toMoviesEntity());
     }, (error) {
