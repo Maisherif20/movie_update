@@ -41,48 +41,49 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAQRJa9P7SMYhe8LOLovA4nSybECDh7n4A',
-    appId: '1:430442903099:web:8c7daa629bfc2337ab4e1e',
-    messagingSenderId: '430442903099',
-    projectId: 'movie-update-babd8',
-    authDomain: 'movie-update-babd8.firebaseapp.com',
-    storageBucket: 'movie-update-babd8.appspot.com',
-    measurementId: 'G-N9TJ9ED9RJ',
+    apiKey: 'AIzaSyA3RWAMaIx883LRf8_MfE70izSUFZzYcDM',
+    appId: '1:909775527453:web:1afa4ae7ad3732e553b0f4',
+    messagingSenderId: '909775527453',
+    projectId: 'movie-app-9db3f',
+    authDomain: 'movie-app-9db3f.firebaseapp.com',
+    storageBucket: 'movie-app-9db3f.appspot.com',
+    measurementId: 'G-2BNMK2R3RK',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyA0vB8fLYd7JIa2Mzu5iFMMKjuJqU_FWhU',
-    appId: '1:430442903099:android:26851c554cd2b080ab4e1e',
-    messagingSenderId: '430442903099',
-    projectId: 'movie-update-babd8',
-    storageBucket: 'movie-update-babd8.appspot.com',
+    apiKey: 'AIzaSyAIdH4OV0VtBLPfr6Yi_FO6SzOnK7KwtHg',
+    appId: '1:909775527453:android:fc64b4e40b81a38153b0f4',
+    messagingSenderId: '909775527453',
+    projectId: 'movie-app-9db3f',
+    storageBucket: 'movie-app-9db3f.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDlgtpxmp4jn7qgZqS-qnA6sNwAf9-N3cA',
-    appId: '1:430442903099:ios:cd29031939db7903ab4e1e',
-    messagingSenderId: '430442903099',
-    projectId: 'movie-update-babd8',
-    storageBucket: 'movie-update-babd8.appspot.com',
+    apiKey: 'AIzaSyBVDrxi7DKWGeCHqRh0R_Mcip1ETNBLX_w',
+    appId: '1:909775527453:ios:641a1ab5f7b9693c53b0f4',
+    messagingSenderId: '909775527453',
+    projectId: 'movie-app-9db3f',
+    storageBucket: 'movie-app-9db3f.appspot.com',
     iosBundleId: 'com.example.untitled',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyDlgtpxmp4jn7qgZqS-qnA6sNwAf9-N3cA',
-    appId: '1:430442903099:ios:cd29031939db7903ab4e1e',
-    messagingSenderId: '430442903099',
-    projectId: 'movie-update-babd8',
-    storageBucket: 'movie-update-babd8.appspot.com',
+    apiKey: 'AIzaSyBVDrxi7DKWGeCHqRh0R_Mcip1ETNBLX_w',
+    appId: '1:909775527453:ios:641a1ab5f7b9693c53b0f4',
+    messagingSenderId: '909775527453',
+    projectId: 'movie-app-9db3f',
+    storageBucket: 'movie-app-9db3f.appspot.com',
     iosBundleId: 'com.example.untitled',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyAQRJa9P7SMYhe8LOLovA4nSybECDh7n4A',
-    appId: '1:430442903099:web:13a597cd970d6a60ab4e1e',
-    messagingSenderId: '430442903099',
-    projectId: 'movie-update-babd8',
-    authDomain: 'movie-update-babd8.firebaseapp.com',
-    storageBucket: 'movie-update-babd8.appspot.com',
-    measurementId: 'G-VYWML7WT8C',
+    apiKey: 'AIzaSyA3RWAMaIx883LRf8_MfE70izSUFZzYcDM',
+    appId: '1:909775527453:web:2189dd123d10f80d53b0f4',
+    messagingSenderId: '909775527453',
+    projectId: 'movie-app-9db3f',
+    authDomain: 'movie-app-9db3f.firebaseapp.com',
+    storageBucket: 'movie-app-9db3f.appspot.com',
+    measurementId: 'G-L592MHT5LM',
   );
+
 }

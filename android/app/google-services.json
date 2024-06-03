@@ -1,13 +1,32 @@
 {
   "project_info": {
-    "project_number": "430442903099",
-    "project_id": "movie-update-babd8",
-    "storage_bucket": "movie-update-babd8.appspot.com"
+    "project_number": "909775527453",
+    "project_id": "movie-app-9db3f",
+    "storage_bucket": "movie-app-9db3f.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:430442903099:android:26851c554cd2b080ab4e1e",
+        "mobilesdk_app_id": "1:909775527453:android:dd44c91646a3838f53b0f4",
+        "android_client_info": {
+          "package_name": "com.example.movies_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAIdH4OV0VtBLPfr6Yi_FO6SzOnK7KwtHg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:909775527453:android:fc64b4e40b81a38153b0f4",
         "android_client_info": {
           "package_name": "com.example.untitled"
         }
@@ -15,7 +34,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyA0vB8fLYd7JIa2Mzu5iFMMKjuJqU_FWhU"
+          "current_key": "AIzaSyAIdH4OV0VtBLPfr6Yi_FO6SzOnK7KwtHg"
         }
       ],
       "services": {
