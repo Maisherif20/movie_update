@@ -8,41 +8,41 @@ import '../../../../../domain_layer/useCase/watchlistUseCase/addMovieUseCase.dar
 
 
 @injectable
-class DeleteMovieViewModel extends Cubit<WatchListState> {
+class DeleteMovieViewModel extends Cubit<DeleteWatchListState> {
   DeleteMovieUseCase deleteMovieUseCase;
 
   @factoryMethod
   DeleteMovieViewModel({required this.deleteMovieUseCase,})
-      : super(WatchListInitialState());
+      : super(DeleteWatchListInitialState());
 
    deleteFromWatchList({required String movieId}) async {
-    emit(WatchListLoadingState());
+    emit(DeleteWatchListLoadingState());
     var result = await deleteMovieUseCase.invoke(movieId);
     try {
       result.fold((response) {
-        emit(WatchListSuccessState(isDelete:response));
+        emit(DeleteWatchListSuccessState(isDelete:response));
       }, (error) {
-        emit(WatchListErrorState(errorMessage: error));
+        emit(DeleteWatchListErrorState(errorMessage: error));
       });
     } catch (e) {
-      emit(WatchListErrorState(errorMessage: e.toString()));
+      emit(DeleteWatchListErrorState(errorMessage: e.toString()));
     }
   }
 
 }
 
-sealed class WatchListState {}
+sealed class DeleteWatchListState {}
 
-class WatchListInitialState extends WatchListState {}
+class DeleteWatchListInitialState extends DeleteWatchListState {}
 
-class WatchListLoadingState extends WatchListState {}
+class DeleteWatchListLoadingState extends DeleteWatchListState {}
 
-class WatchListSuccessState extends WatchListState {
+class DeleteWatchListSuccessState extends DeleteWatchListState {
   bool isDelete;
-  WatchListSuccessState({required this.isDelete});
+  DeleteWatchListSuccessState({required this.isDelete});
 }
 
-class WatchListErrorState extends WatchListState {
+class DeleteWatchListErrorState extends DeleteWatchListState {
   String errorMessage;
-  WatchListErrorState({required this.errorMessage});
+  DeleteWatchListErrorState({required this.errorMessage});
 }

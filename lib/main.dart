@@ -6,6 +6,7 @@ import 'package:untitled/presentation_layer/ui/homeScreen/homeScreen.dart';
 import 'package:untitled/presentation_layer/ui/loginScreen.dart';
 import 'package:untitled/presentation_layer/ui/login_Page.dart';
 import 'package:untitled/presentation_layer/ui/registerScreen.dart';
+import 'package:untitled/presentation_layer/ui/tabs/browseTab/movieGenreList/movie_genre_list_view.dart';
 import 'DI/dI.dart';
 import 'firebase_options.dart';
 
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
           LoginScreen.routeName :(context)=> LoginScreen(),
           RegisterScreen.routeName :(context)=>RegisterScreen(),
           HomeScreen.routeName:(context)=>HomeScreen(),
+          MovieGenreListView.routeName:(context)=>MovieGenreListView(),
         },
         initialRoute:HomeScreen.routeName,
         debugShowCheckedModeBanner: false,
