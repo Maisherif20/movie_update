@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:untitled/DI/dI.dart';
+import 'package:untitled/data_layer/firebase/firestore.dart';
 import 'package:untitled/generated/assets.dart';
 import 'package:untitled/presentation_layer/ui/tabs/watchListTab/watchListViewModels/allMoviesInWatchListViewModel.dart';
 import 'package:untitled/presentation_layer/ui/tabs/watchListTab/watchListViewModels/deleteMovieViewModel.dart';
@@ -112,10 +113,12 @@ class _WatchListWidgetState extends State<WatchListWidget> {
                           );
                         }
                         return InkWell(
-                            onTap: () {
+                            onTap: () async{
                               // Movie movie = Movie();
                               // MovieDao.deleteMovie(id);
                               deleteMovieViewModel.deleteFromWatchList(movieId: widget.id);
+                              // var found = await Firestore.checkInFireBase("653346");
+                              // print("hereeeeeeeeeeeee$found");
                               setState(() {
                                 deleteMovieViewModel.deleteFromWatchList(movieId: widget.id);
                               });

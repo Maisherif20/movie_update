@@ -54,10 +54,23 @@ class Firestore {
         (querySnapShot) => querySnapShot.docs.map((e) => e.data()).toList());
   }
 
-  Future<bool> checkInFireBase(String id) async {
-    final DocumentSnapshot docSnapshot =
-        await FirebaseFirestore.instance.collection("movies").doc(id).get();
-    return docSnapshot.exists;
+  // Future<bool> checkInFireBase(String id) async {
+  //   final DocumentSnapshot docSnapshot =
+  //       await FirebaseFirestore.instance.collection("movies").doc(id).get();
+  //   return docSnapshot.exists;
+  // }
+//done check if id in firebase.
+   Future<bool> checkInFireBase(String id) async {
+    try {
+      final snapshot = await FirebaseFirestore.instance
+          .collection('movies')
+          .doc(id)
+          .get();
+      return snapshot.exists;
+    } catch (error) {
+      print('Error checking ID in Firestore: $error');
+      return false;
+    }
   }
 
   Future<bool> deleteMovie(String movieId) async {

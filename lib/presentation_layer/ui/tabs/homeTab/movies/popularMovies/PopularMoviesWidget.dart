@@ -107,6 +107,7 @@ class _PopularMoviesWidgetState extends State<PopularMoviesWidget> {
                   left: 7.sp,
                   child: InkWell(
                     onTap: ()async{
+                      print(widget.id);
                       setState(() {
                         isAddedToWatchlist = !isAddedToWatchlist;
                       });
@@ -122,10 +123,12 @@ class _PopularMoviesWidgetState extends State<PopularMoviesWidget> {
                         // isFav=  await MovieDao.checkInFireBase(movie.id!) ;
                         await addWatchListViewModel.addToWatchList(
                             movie: movie, id: widget.id);
+
                         // await MovieDao.addMovieToFireBase(movie, widget.id);
                         await updateMovieViewModel.updateMovie(movie: movie);
                         // await MovieDao.updateMovie(movie);
                       }
+
                     },
                     child: Stack(children: [
                       Image.asset(
