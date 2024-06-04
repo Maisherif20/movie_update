@@ -15,12 +15,12 @@ class DeleteMovieViewModel extends Cubit<DeleteWatchListState> {
   DeleteMovieViewModel({required this.deleteMovieUseCase,})
       : super(DeleteWatchListInitialState());
 
-   deleteFromWatchList({required String movieId}) async {
+   deleteFromWatchList({required String movieId, required String uid}) async {
     emit(DeleteWatchListLoadingState());
-    var result = await deleteMovieUseCase.invoke(movieId);
+    var result = await deleteMovieUseCase.invoke(movieId, uid);
     try {
       result.fold((response) {
-        emit(DeleteWatchListSuccessState(isDelete:response));
+        emit(DeleteWatchListSuccessState(isDelete: response));
       }, (error) {
         emit(DeleteWatchListErrorState(errorMessage: error));
       });

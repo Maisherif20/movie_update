@@ -8,9 +8,11 @@ import '../../reposatoryContract/watchListRepository.dart';
 class AddMovieUseCase {
   @factoryMethod
   WatchListRepository watchListRepository;
+
   AddMovieUseCase({required this.watchListRepository});
-  Future<Either<bool, String>> invoke(Movie movie, String id) {
-    return watchListRepository.addMovieToFireBase(movie, id);
+
+  Future<Either<bool, String>> invoke(Movie movie, String uid) {
+    return watchListRepository.addMovieToFireBase(movie, uid);
   }
 }
 

@@ -1,10 +1,13 @@
+import 'package:firebase/firebase.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:untitled/DI/dI.dart';
 import 'package:untitled/constants/Constant.dart';
 
 import '../../../../../../data_layer/Models/WatchList/movie.dart';
+import '../../../../../../data_layer/firebase/firebaseAuth.dart';
 import '../../../../../../domain_layer/entities/MoviesEntity/MoviesEntity.dart';
 import '../../../../../../generated/assets.dart';
 import '../../../watchListTab/watchListViewModels/addWatchListViewModel.dart';
@@ -38,7 +41,7 @@ class _NewReleaseWidgetState extends State<NewReleaseWidget> {
     _prefs = await SharedPreferences.getInstance();
     setState(() {
       isAddedToWatchlist = _prefs.getBool(
-              widget.moviesEntity.resultEntity![widget.index].id.toString()) ??
+          widget.moviesEntity.resultEntity![widget.index].id.toString()) ??
           false; // Load watchlist state from SharedPreferences
     });
   }
@@ -51,6 +54,7 @@ class _NewReleaseWidgetState extends State<NewReleaseWidget> {
 
   @override
   Widget build(BuildContext context) {
+    var authProvider = Provider.of<FirebaseAuthUser>(context, listen: false);
     return InkWell(
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
@@ -63,7 +67,7 @@ class _NewReleaseWidgetState extends State<NewReleaseWidget> {
                 )));
       },
       child: Stack(
-          // alignment: Alignment.topLeft,
+        // alignment: Alignment.topLeft,
           children: [
             Image.network('${Constant.imagePath}${widget.moviesEntity.resultEntity![widget.index].posterPath!}' ,width: 100.w,),
             InkWell(
@@ -77,7 +81,7 @@ class _NewReleaseWidgetState extends State<NewReleaseWidget> {
                     id: widget.moviesEntity.resultEntity![widget.index].id
                         .toString(),
                     title:
-                        widget.moviesEntity.resultEntity![widget.index].title,
+                    widget.moviesEntity.resultEntity![widget.index].title,
                     posterImagePath: widget
                         .moviesEntity.resultEntity![widget.index].posterPath,
                     releaseData: widget
@@ -89,7 +93,8 @@ class _NewReleaseWidgetState extends State<NewReleaseWidget> {
                       movie: movie,
                       id: widget.moviesEntity.resultEntity![widget.index].id
                           .toString());
-                  await updateMovieViewModel.updateMovie(movie: movie);
+                  await updateMovieViewModel.updateMovie(
+                      movie: movie, uid: authProvider.databaseUser!.id!);
                 }
               },
               child: Stack(

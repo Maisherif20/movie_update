@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:untitled/constants/Constant.dart';
 
 import '../../../../../../DI/dI.dart';
 import '../../../../../../data_layer/Models/WatchList/movie.dart';
+import '../../../../../../data_layer/firebase/firebaseAuth.dart';
 import '../../../../../../generated/assets.dart';
 import '../../../watchListTab/watchListViewModels/addWatchListViewModel.dart';
 import '../../../watchListTab/watchListViewModels/updateMovieViewModel.dart';
@@ -52,6 +54,7 @@ class _PopularMoviesWidgetState extends State<PopularMoviesWidget> {
 
   @override
   Widget build(BuildContext context) {
+    var authProvider = Provider.of<FirebaseAuthUser>(context, listen: false);
     return Container(
       decoration: const BoxDecoration(
         color: Color.fromRGBO(18, 18, 18, 1),
@@ -65,7 +68,7 @@ class _PopularMoviesWidgetState extends State<PopularMoviesWidget> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Container(
-                width: 320.w,
+                  width: 320.w,
                   child: Image.network(
                     "${Constant.imagePath}${widget.imageBack}",
                     fit: BoxFit.fill,
@@ -125,10 +128,10 @@ class _PopularMoviesWidgetState extends State<PopularMoviesWidget> {
                             movie: movie, id: widget.id);
 
                         // await MovieDao.addMovieToFireBase(movie, widget.id);
-                        await updateMovieViewModel.updateMovie(movie: movie);
+                        await updateMovieViewModel.updateMovie(
+                            movie: movie, uid: authProvider.databaseUser!.id!);
                         // await MovieDao.updateMovie(movie);
                       }
-
                     },
                     child: Stack(children: [
                       Image.asset(

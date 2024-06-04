@@ -13,8 +13,8 @@ class WatchListRepositoryImpl extends WatchListRepository {
 
   @override
   Future<Either<bool, String>> addMovieToFireBase(
-      Movie movie, String id) async {
-    var result = await watchListDataSource.addMovieToFireBase(movie, id);
+      Movie movie, String uid) async {
+    var result = await watchListDataSource.addMovieToFireBase(movie, uid);
     return result.fold((response) {
       return left(response);
     }, (error) {
@@ -33,8 +33,8 @@ class WatchListRepositoryImpl extends WatchListRepository {
   }
 
   @override
-  Future<Either<bool, String>> deleteMovie(String movieId) async {
-    var result = await watchListDataSource.deleteMovie(movieId);
+  Future<Either<bool, String>> deleteMovie(String movieId, String uid) async {
+    var result = await watchListDataSource.deleteMovie(movieId, uid);
     return result.fold((response) {
       return left(response);
     }, (error) {
@@ -43,8 +43,8 @@ class WatchListRepositoryImpl extends WatchListRepository {
   }
 
   @override
-  Future<Either<List<Movie>, String>> getAllMovies() async {
-    var result = await watchListDataSource.getAllMovies();
+  Future<Either<List<Movie>, String>> getAllMovies(String uid) async {
+    var result = await watchListDataSource.getAllMovies(uid);
     return result.fold((response) {
       return left(response);
     }, (error) {
@@ -53,8 +53,8 @@ class WatchListRepositoryImpl extends WatchListRepository {
   }
 
   @override
-  Stream<Either<List<Movie>, String>> listenForMovie() async* {
-    var result = await watchListDataSource.listenForMovie().first;
+  Stream<Either<List<Movie>, String>> listenForMovie(String uid) async* {
+    var result = await watchListDataSource.listenForMovie(uid).first;
     yield result.fold((response) {
       return left(response);
     }, (error) {
@@ -63,8 +63,8 @@ class WatchListRepositoryImpl extends WatchListRepository {
   }
 
   @override
-  Future<Either<bool, String>> updateMovie(Movie movie) async {
-    var result = await watchListDataSource.updateMovie(movie);
+  Future<Either<bool, String>> updateMovie(Movie movie, String uid) async {
+    var result = await watchListDataSource.updateMovie(movie, uid);
     return result.fold((response) {
       return left(response);
     }, (error) {

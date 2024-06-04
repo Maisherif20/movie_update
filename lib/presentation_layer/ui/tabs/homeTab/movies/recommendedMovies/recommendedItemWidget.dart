@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:untitled/constants/Constant.dart';
 
 import '../../../../../../DI/dI.dart';
 import '../../../../../../data_layer/Models/WatchList/movie.dart';
+import '../../../../../../data_layer/firebase/firebaseAuth.dart';
 import '../../../../../../domain_layer/entities/MoviesEntity/MoviesEntity.dart';
 import '../../../../../../generated/assets.dart';
 import '../../../watchListTab/watchListViewModels/addWatchListViewModel.dart';
@@ -63,6 +65,7 @@ class _RecommendedItemWidgetState extends State<RecommendedItemWidget> {
 
   @override
   Widget build(BuildContext context) {
+    var authProvider = Provider.of<FirebaseAuthUser>(context, listen: false);
     return InkWell(
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
@@ -83,7 +86,7 @@ class _RecommendedItemWidgetState extends State<RecommendedItemWidget> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Stack(
-                  // alignment: Alignment.topLeft,
+                // alignment: Alignment.topLeft,
                   children: [
                     Image.network(
                       '${Constant.imagePath}${widget.imagePoster}',
@@ -106,7 +109,9 @@ class _RecommendedItemWidgetState extends State<RecommendedItemWidget> {
                           // isFav=  await MovieDao.checkInFireBase(movie.id!) ;
                           await addWatchListViewModel.addToWatchList(
                               movie: movie, id: widget.id);
-                          await updateMovieViewModel.updateMovie(movie: movie);
+                          await updateMovieViewModel.updateMovie(
+                              movie: movie,
+                              uid: authProvider.databaseUser!.id!);
                           // await MovieDao.addMovieToFireBase(movie, widget.id);
                           // await MovieDao.updateMovie(movie);
                         }
@@ -115,15 +120,15 @@ class _RecommendedItemWidgetState extends State<RecommendedItemWidget> {
                         children: [
                           isAddedToWatchlist
                               ? Image.asset(
-                                  Assets.imagesImg5,
-                                  height: 36,
-                                  width: 28,
-                                )
+                            Assets.imagesImg5,
+                            height: 36,
+                            width: 28,
+                          )
                               : Image.asset(
-                                  Assets.imagesImg4,
-                                  height: 36,
-                                  width: 28,
-                                ),
+                            Assets.imagesImg4,
+                            height: 36,
+                            width: 28,
+                          ),
                           // Icon(Icons.bookmark , size: 50, color: movie.isSelected==false?Color.fromRGBO(81, 79, 79, 1):Color.fromRGBO(247, 181, 57, 1),),
                           Icon(
                             isAddedToWatchlist ? Icons.check : Icons.add,

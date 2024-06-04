@@ -8,12 +8,12 @@ class AllMoviesViewModel extends Cubit<WatchListState> {
   AllMoviesUseCase allMoviesUseCase;
 
   @factoryMethod
-
   AllMoviesViewModel({required this.allMoviesUseCase})
       : super(WatchListInitialState());
-  getAllMoviesInWatchList() async {
+
+  getAllMoviesInWatchList({required String uid}) async {
     emit(WatchListLoadingState());
-    var result = await allMoviesUseCase.invoke();
+    var result = await allMoviesUseCase.invoke(uid);
     try {
       result.fold((response) {
         emit(WatchListSuccessState(movie: response));

@@ -11,11 +11,12 @@ class WatchListDataSourceImpl extends WatchListDataSource {
   @factoryMethod
   Firestore firestore;
   WatchListDataSourceImpl({required this.firestore});
+
   @override
   Future<Either<bool, String>> addMovieToFireBase(
-      Movie movie, String id) async {
+      Movie movie, String uid) async {
     try {
-      var response = await firestore.addMovieToFirebase(movie, id);
+      var response = await firestore.addMovieToFirebase(movie, uid);
       return Left(response);
     } catch (e) {
       return Right(e.toString()); // error from server
@@ -34,9 +35,9 @@ class WatchListDataSourceImpl extends WatchListDataSource {
   }
 
   @override
-  Future<Either<bool, String>> deleteMovie(String movieId) async {
+  Future<Either<bool, String>> deleteMovie(String movieId, String uid) async {
     try {
-      var response = await firestore.deleteMovie(movieId);
+      var response = await firestore.deleteMovie(movieId, uid);
       return Left(response);
     } catch (e) {
       return Right(e.toString()); // error from server
@@ -44,9 +45,9 @@ class WatchListDataSourceImpl extends WatchListDataSource {
   }
 
   @override
-  Future<Either<List<Movie>, String>> getAllMovies() async {
+  Future<Either<List<Movie>, String>> getAllMovies(String uid) async {
     try {
-      var response = await firestore.getAllMovies();
+      var response = await firestore.getAllMovies(uid);
       return Left(response);
     } catch (e) {
       return Right(e.toString());
@@ -54,9 +55,9 @@ class WatchListDataSourceImpl extends WatchListDataSource {
   }
 
   @override
-  Stream<Either<List<Movie>, String>> listenForMovie() async* {
+  Stream<Either<List<Movie>, String>> listenForMovie(String uid) async* {
     try {
-      var response =  await firestore.listenForMovie().first;
+      var response = await firestore.listenForMovie(uid).first;
       yield Left(response);
     } catch (e) {
       yield Right(e.toString());
@@ -64,9 +65,9 @@ class WatchListDataSourceImpl extends WatchListDataSource {
   }
 
   @override
-  Future<Either<bool, String>> updateMovie(Movie movie) async {
+  Future<Either<bool, String>> updateMovie(Movie movie, String uid) async {
     try {
-      var response = await firestore.updateMovie(movie);
+      var response = await firestore.updateMovie(movie, uid);
       return Left(response);
     } catch (e) {
       return Right(e.toString());

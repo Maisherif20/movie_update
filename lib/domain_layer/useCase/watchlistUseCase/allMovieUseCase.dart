@@ -7,8 +7,10 @@ import '../../reposatoryContract/watchListRepository.dart';
 class AllMoviesUseCase {
   @factoryMethod
   WatchListRepository watchListRepository;
+
   AllMoviesUseCase({required this.watchListRepository});
-  Future<Either<List<Movie>, String>> invoke() {
-    return watchListRepository.getAllMovies();
+
+  Future<Either<List<Movie>, String>> invoke(String uid) {
+    return watchListRepository.getAllMovies(uid);
   }
 }

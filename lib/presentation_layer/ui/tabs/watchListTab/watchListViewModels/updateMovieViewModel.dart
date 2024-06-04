@@ -14,9 +14,9 @@ class UpdateMovieViewModel extends Cubit<WatchListState> {
   UpdateMovieViewModel({required this.updateMovieUseCase,})
       : super(WatchListInitialState());
 
-  updateMovie({required Movie movie}) async {
+  updateMovie({required Movie movie, required String uid}) async {
     emit(WatchListLoadingState());
-    var result = await updateMovieUseCase.invoke(movie);
+    var result = await updateMovieUseCase.invoke(movie, uid);
     try {
       result.fold((response) {
         emit(WatchListSuccessState(isUpdate: response));

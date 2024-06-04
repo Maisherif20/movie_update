@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
 import 'package:untitled/DI/dI.dart';
+import 'package:untitled/data_layer/firebase/firebaseAuth.dart';
 import 'package:untitled/data_layer/firebase/firestore.dart';
 import 'package:untitled/generated/assets.dart';
 import 'package:untitled/presentation_layer/ui/tabs/watchListTab/watchListViewModels/allMoviesInWatchListViewModel.dart';
@@ -27,31 +29,40 @@ class WatchListWidget extends StatefulWidget {
 }
 
 class _WatchListWidgetState extends State<WatchListWidget> {
-  DeleteMovieViewModel deleteMovieViewModel = getIt<DeleteMovieViewModel>();
-  AllMoviesViewModel allMoviesViewModel = getIt<AllMoviesViewModel>();
+  late DeleteMovieViewModel deleteMovieViewModel;
+  late AllMoviesViewModel allMoviesViewModel;
+
   @override
   void initState() {
-    allMoviesViewModel.getAllMoviesInWatchList();
+    allMoviesViewModel = getIt<AllMoviesViewModel>();
+    super.initState();
   }
+
   @override
   void didUpdateWidget(covariant WatchListWidget oldWidget) {
-    allMoviesViewModel.getAllMoviesInWatchList();
-}
+    allMoviesViewModel = getIt<AllMoviesViewModel>();
+    super.didUpdateWidget(oldWidget);
+  }
+
   @override
 
   Widget build(BuildContext context) {
-    allMoviesViewModel.getAllMoviesInWatchList();
+    var authProvider = Provider.of<FirebaseAuthUser>(context, listen: false);
+    allMoviesViewModel.getAllMoviesInWatchList(
+        uid: authProvider.databaseUser!.id!);
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-        create: (BuildContext context) =>deleteMovieViewModel,),
+          create: (BuildContext context) => deleteMovieViewModel,
+        ),
         BlocProvider(
-          create: (BuildContext context) =>allMoviesViewModel,),
+          create: (BuildContext context) => allMoviesViewModel,
+        ),
       ],
-        child: Container(
-          width: double.infinity,
-          color: Colors.black,
-          child: Padding(
+      child: Container(
+        width: double.infinity,
+        color: Colors.black,
+        child: Padding(
             padding: const EdgeInsets.only(top: 10, bottom: 10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -116,13 +127,17 @@ class _WatchListWidgetState extends State<WatchListWidget> {
                             onTap: () async{
                               // Movie movie = Movie();
                               // MovieDao.deleteMovie(id);
-                              deleteMovieViewModel.deleteFromWatchList(movieId: widget.id);
-                              // var found = await Firestore.checkInFireBase("653346");
-                              // print("hereeeeeeeeeeeee$found");
-                              setState(() {
-                                deleteMovieViewModel.deleteFromWatchList(movieId: widget.id);
-                              });
-                            },
+                              deleteMovieViewModel.deleteFromWatchList(
+                                movieId: widget.id,
+                                uid: authProvider.databaseUser!.id!);
+                            // var found = await Firestore.checkInFireBase("653346");
+                            // print("hereeeeeeeeeeeee$found");
+                            setState(() {
+                              deleteMovieViewModel.deleteFromWatchList(
+                                  movieId: widget.id,
+                                  uid: authProvider.databaseUser!.id!);
+                            });
+                          },
                             child: const Padding(
                               padding: EdgeInsets.only(right: 20),
                               child: Icon(

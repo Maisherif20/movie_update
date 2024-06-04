@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 import 'package:untitled/data_layer/firebase/firebaseAuth.dart';
 import 'package:untitled/presentation_layer/ui/widgets/CustomTextFormField.dart';
 
 import 'core/checkEmail.dart';
 
 class LoginScreen extends StatefulWidget {
-  static const routeName  = "Login Screen";
+  static const routeName = "Login Screen";
+
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
@@ -104,10 +107,12 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  void login() {
+  void login() async {
+    var authProvider = Provider.of<FirebaseAuthUser>(context, listen: false);
     if (_formKey.currentState?.validate() == false) {
       return;
     }
-     FirebaseAuthUser.login(emailController.text, passwordController.text , context);
+    await authProvider.login(
+        emailController.text, passwordController.text, context);
   }
 }

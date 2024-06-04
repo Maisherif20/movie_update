@@ -1,8 +1,11 @@
+import 'package:firebase/firebase.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:untitled/DI/dI.dart';
 import 'package:untitled/constants/Constant.dart';
+import 'package:untitled/data_layer/firebase/firebaseAuth.dart';
 import 'package:untitled/presentation_layer/ui/tabs/homeTab/movies/MoreLikeMovies/moreLikeView.dart';
 import 'package:untitled/presentation_layer/ui/tabs/homeTab/movies/moviesDetails/detailsViewModel.dart';
 import '../../../../../../data_layer/Models/WatchList/movie.dart';
@@ -15,6 +18,7 @@ class DetailsScreen extends StatefulWidget {
   String id;
   String desription;
   DetailsEntity detailsEntity;
+
   DetailsScreen({required this.detailsEntity, required this.id , required this.desription});
 
   @override
@@ -33,7 +37,6 @@ class _DetailsScreenState extends State<DetailsScreen> {
     detailsViewModel.movieDetails(widget.id);
     _loadWatchlistState();
     super.initState();
-
   }
 
   Future<void> _loadWatchlistState() async {
@@ -48,18 +51,26 @@ class _DetailsScreenState extends State<DetailsScreen> {
     await _prefs.setBool(widget.id,
         isAddedToWatchlist); // Save watchlist state to SharedPreferences
   }
+
   @override
   Widget build(BuildContext context) {
+    var authProvider = Provider.of<FirebaseAuthUser>(context, listen: false);
     return Scaffold(
         backgroundColor: Color.fromRGBO(18, 18, 18, 1),
         appBar: AppBar(
-          leading: IconButton(onPressed: () {
-            Navigator.pop(context);
-          }, icon: const Icon(Icons.arrow_back , color: Color.fromRGBO(255, 187, 59, 1),),),
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(
+              Icons.arrow_back,
+              color: Color.fromRGBO(255, 187, 59, 1),
+            ),
+          ),
           backgroundColor: Colors.black,
           elevation: 0,
-          title:  Text(
-            widget.detailsEntity.title??"",
+          title: Text(
+            widget.detailsEntity.title ?? "",
             style: TextStyle(
                 color: Color.fromRGBO(255, 187, 59, 1), fontSize: 18),
           ),
@@ -119,7 +130,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         // isFav=  await MovieDao.checkInFireBase(movie.id!) ;
                         await addWatchListViewModel.addToWatchList(
                             movie: movie, id: widget.id);
-                        await updateMovieViewModel.updateMovie(movie: movie);
+                        await updateMovieViewModel.updateMovie(
+                            movie: movie, uid: authProvider.databaseUser!.id!);
                         // await MovieDao.addMovieToFireBase(movie, widget.id);
                         // await MovieDao.updateMovie(movie);
                       }

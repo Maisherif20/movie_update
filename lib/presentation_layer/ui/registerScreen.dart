@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:untitled/data_layer/firebase/firebaseAuth.dart';
 import 'package:untitled/presentation_layer/ui/widgets/CustomTextFormField.dart';
 
@@ -147,10 +148,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  void createAccount() {
+  void createAccount() async {
+    var authProvider = Provider.of<FirebaseAuthUser>(context, listen: false);
     if (_formKey.currentState?.validate() == false) {
       return;
     }
-    FirebaseAuthUser.register(emailController.text, passwordController.text , context);
+    await authProvider.register(
+        emailController.text, passwordController.text, context);
   }
 }

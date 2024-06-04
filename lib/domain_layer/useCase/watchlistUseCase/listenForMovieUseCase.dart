@@ -10,7 +10,7 @@ class ListenForMovieUseCase {
 
   ListenForMovieUseCase({required this.watchListRepository});
 
-  Stream <Either<List<Movie>, String>>invoke() {
-    return watchListRepository.listenForMovie();
+  Stream<Either<List<Movie>, String>> invoke(String uid) {
+    return watchListRepository.listenForMovie(uid);
   }
 }
