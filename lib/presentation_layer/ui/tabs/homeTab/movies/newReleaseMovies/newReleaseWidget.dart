@@ -1,4 +1,3 @@
-import 'package:firebase/firebase.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -91,8 +90,7 @@ class _NewReleaseWidgetState extends State<NewReleaseWidget> {
                   // isFav=  await MovieDao.checkInFireBase(movie.id!) ;
                   await addWatchListViewModel.addToWatchList(
                       movie: movie,
-                      id: widget.moviesEntity.resultEntity![widget.index].id
-                          .toString());
+                      id: authProvider.databaseUser!.id!);
                   await updateMovieViewModel.updateMovie(
                       movie: movie, uid: authProvider.databaseUser!.id!);
                 }

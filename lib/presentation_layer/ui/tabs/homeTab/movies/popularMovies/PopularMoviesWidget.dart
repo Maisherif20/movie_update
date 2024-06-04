@@ -125,7 +125,7 @@ class _PopularMoviesWidgetState extends State<PopularMoviesWidget> {
                         );
                         // isFav=  await MovieDao.checkInFireBase(movie.id!) ;
                         await addWatchListViewModel.addToWatchList(
-                            movie: movie, id: widget.id);
+                            movie: movie, id: authProvider.databaseUser!.id!);
 
                         // await MovieDao.addMovieToFireBase(movie, widget.id);
                         await updateMovieViewModel.updateMovie(

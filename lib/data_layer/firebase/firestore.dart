@@ -27,6 +27,8 @@ class Firestore {
     var movieCollection = getMovieCollection(uid);
     var doc = movieCollection.doc();
     var docSnapshot = await doc.get();
+    // movie.id = doc.id;
+    // await doc.set(movie);
     if (docSnapshot.exists) {
       // print('Document already exists');
       return false;
@@ -36,6 +38,18 @@ class Firestore {
       return true;
     }
   }
+  // Future<bool> addMovieToFirebase(Movie movie, String uid) async {
+  //   var movieCollection = getMovieCollection(uid);
+  //   var doc = movieCollection.doc(movie.id); // Use the movie's ID as document ID
+  //   var docSnapshot = await doc.get();
+  //   if (docSnapshot.exists) {
+  //     // Document already exists
+  //     return false;
+  //   } else {
+  //     await doc.set(movie); // Set the movie data to Firestore
+  //     return true;
+  //   }
+  // }
 
   Future<List<Movie>> getAllMovies(String uid) async {
     var movieCollection = getMovieCollection(uid);

@@ -15,7 +15,7 @@ class ListenForMovieViewModel extends Cubit<WatchListState> {
    listenForMovie({required String uid}) async {
     emit(WatchListLoadingState());
     try {
-      final movieStream = listenForMovieUseCase.invoke(uid);
+      var movieStream = listenForMovieUseCase.invoke(uid);
       await for (final result in movieStream) {
         result.fold(
           (movieList) {

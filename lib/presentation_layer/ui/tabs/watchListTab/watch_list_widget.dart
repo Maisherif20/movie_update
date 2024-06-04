@@ -4,7 +4,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:untitled/DI/dI.dart';
 import 'package:untitled/data_layer/firebase/firebaseAuth.dart';
-import 'package:untitled/data_layer/firebase/firestore.dart';
 import 'package:untitled/generated/assets.dart';
 import 'package:untitled/presentation_layer/ui/tabs/watchListTab/watchListViewModels/allMoviesInWatchListViewModel.dart';
 import 'package:untitled/presentation_layer/ui/tabs/watchListTab/watchListViewModels/deleteMovieViewModel.dart';
@@ -29,11 +28,12 @@ class WatchListWidget extends StatefulWidget {
 }
 
 class _WatchListWidgetState extends State<WatchListWidget> {
-  late DeleteMovieViewModel deleteMovieViewModel;
+  DeleteMovieViewModel deleteMovieViewModel=getIt<DeleteMovieViewModel>();
   late AllMoviesViewModel allMoviesViewModel;
 
   @override
   void initState() {
+
     allMoviesViewModel = getIt<AllMoviesViewModel>();
     super.initState();
   }
@@ -47,9 +47,12 @@ class _WatchListWidgetState extends State<WatchListWidget> {
   @override
 
   Widget build(BuildContext context) {
+
     var authProvider = Provider.of<FirebaseAuthUser>(context, listen: false);
+
     allMoviesViewModel.getAllMoviesInWatchList(
         uid: authProvider.databaseUser!.id!);
+    // deleteMovieViewModel.deleteFromWatchList(movieId: widget.id, uid: authProvider.databaseUser!.id!);
     return MultiBlocProvider(
       providers: [
         BlocProvider(

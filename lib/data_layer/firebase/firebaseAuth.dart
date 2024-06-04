@@ -10,7 +10,7 @@ class FirebaseAuthUser extends ChangeNotifier {
   myuser.User? databaseUser;
   User? firebaseAuthUser;
 
-  register(String email, String password, BuildContext context) async {
+  Future<void>register(String email, String password, BuildContext context) async {
     try {
       var credential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
@@ -29,7 +29,7 @@ class FirebaseAuthUser extends ChangeNotifier {
     }
   }
 
-  login(String email, String password, BuildContext context) async {
+  Future<void>login(String email, String password, BuildContext context) async {
     try {
       var credential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);

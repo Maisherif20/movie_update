@@ -3,7 +3,6 @@ import 'package:injectable/injectable.dart';
 import 'package:untitled/constants/Constant.dart';
 import 'package:http/http.dart' as http;
 import 'package:untitled/data_layer/models/movieDetailsResponse/DetailsResponse.dart';
-
 import '../Models/genresResponse/GenresResponse.dart';
 import '../Models/movieDiscoverResponse/MovieDiscoverResponse.dart';
 import '../models/MoviesResponse/MovieResponse.dart';

@@ -139,7 +139,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         "Sign up",
                         style: TextStyle(color: Colors.white, fontSize: 20),
                       ),
-                    ))
+                    )),
+                Text("Already have account.", style:  TextStyle(),),
               ],
             ),
           ),

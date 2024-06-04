@@ -108,7 +108,7 @@ class _RecommendedItemWidgetState extends State<RecommendedItemWidget> {
                           );
                           // isFav=  await MovieDao.checkInFireBase(movie.id!) ;
                           await addWatchListViewModel.addToWatchList(
-                              movie: movie, id: widget.id);
+                              movie: movie, id: authProvider.databaseUser!.id!);
                           await updateMovieViewModel.updateMovie(
                               movie: movie,
                               uid: authProvider.databaseUser!.id!);
