@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:untitled/DI/dI.dart';
+import 'package:untitled/presentation_layer/ui/helpers/saveUserLogin.dart';
 import 'package:untitled/presentation_layer/ui/homeScreen/homeScreenViewModel.dart';
+import 'package:untitled/presentation_layer/ui/loginScreen.dart';
 import 'package:untitled/presentation_layer/ui/tabs/homeTab/homeTab.dart';
 import 'package:untitled/presentation_layer/ui/tabs/searchTab/searchTab.dart';
 import 'package:untitled/presentation_layer/ui/tabs/watchListTab/watchListTab.dart';
@@ -49,16 +51,22 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: InkWell(
                       onTap: () {
                       },
-                      child: const Row(
-                        children: [
-                          Text("Log out" , style: TextStyle(color: Color.fromRGBO(255, 187, 59, 1)),),
-                          SizedBox(width: 5,),
-                          Icon(
-                            Icons.logout,
-                            color: Color.fromRGBO(255, 187, 59, 1),
-                            size: 25,
-                          ),
-                        ],
+                      child:  InkWell(
+                        onTap: (){
+                          SaveUserLogin.logout();
+                          Navigator.pushReplacementNamed(context, LoginScreen.routeName);
+                        },
+                        child: Row(
+                          children: [
+                            Text("Log out" , style: TextStyle(color: Color.fromRGBO(255, 187, 59, 1)),),
+                            SizedBox(width: 5,),
+                            Icon(
+                              Icons.logout,
+                              color: Color.fromRGBO(255, 187, 59, 1),
+                              size: 25,
+                            ),
+                          ],
+                        ),
                       )),
                 ),
               ],

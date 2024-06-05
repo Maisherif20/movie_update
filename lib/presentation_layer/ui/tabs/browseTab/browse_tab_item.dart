@@ -27,7 +27,7 @@ class _BrowseTabItemState extends State<BrowseTabItem> {
       child: Stack(
         alignment: Alignment.center,
         children: [
-          Image.asset(Assets.defaultImage),
+          Image.asset(Assets.imagesDefaultImage),
           Text(widget.name,style: const TextStyle(fontSize: 22,fontWeight: FontWeight.w400,color: Colors.white,)),
         ],
       ),

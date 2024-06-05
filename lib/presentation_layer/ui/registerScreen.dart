@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:untitled/data_layer/firebase/firebaseAuth.dart';
+import 'package:untitled/presentation_layer/ui/loginScreen.dart';
 import 'package:untitled/presentation_layer/ui/widgets/CustomTextFormField.dart';
 
 import 'core/checkEmail.dart';
@@ -55,13 +57,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                const Text(
-                  "Sign up",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 32, fontWeight: FontWeight.w700),
-                ),
+                Image.asset("assests/images/register.png", height: 100.h,width: 100.w,),
+                // const Text(
+                //   "Sign in",
+                //   textAlign: TextAlign.center,
+                //   style: TextStyle(fontSize: 30, fontWeight: FontWeight.w700),
+                // ),
                 SizedBox(
-                  height: 10,
+                  height: 20,
                 ),
                 const Text(
                   "Welcome 👋",
@@ -136,11 +139,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     child: const Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Text(
-                        "Sign up",
+                        "Register",
                         style: TextStyle(color: Colors.white, fontSize: 20),
                       ),
                     )),
-                Text("Already have account.", style:  TextStyle(),),
+                SizedBox(height: 10.h,),
+                InkWell(onTap: (){
+                  Navigator.pushReplacementNamed(context, LoginScreen.routeName);
+                },
+                    child: Text("Already have account.",textAlign: TextAlign.center, style:  TextStyle(fontSize: 15.sp, fontWeight: FontWeight.w500),)),
               ],
             ),
           ),

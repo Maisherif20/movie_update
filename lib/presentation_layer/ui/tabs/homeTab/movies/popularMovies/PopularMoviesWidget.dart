@@ -3,12 +3,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:untitled/constants/Constant.dart';
-
 import '../../../../../../DI/dI.dart';
 import '../../../../../../data_layer/Models/WatchList/movie.dart';
 import '../../../../../../data_layer/firebase/firebaseAuth.dart';
 import '../../../../../../generated/assets.dart';
 import '../../../watchListTab/watchListViewModels/addWatchListViewModel.dart';
+import '../../../watchListTab/watchListViewModels/checkInViewModel.dart';
 import '../../../watchListTab/watchListViewModels/updateMovieViewModel.dart';
 
 class PopularMoviesWidget extends StatefulWidget {
@@ -27,6 +27,7 @@ class PopularMoviesWidget extends StatefulWidget {
 
 class _PopularMoviesWidgetState extends State<PopularMoviesWidget> {
   bool isAddedToWatchlist = false;
+  CheckInViewModel checkInViewModel = getIt<CheckInViewModel>();
   AddWatchListViewModel addWatchListViewModel = getIt<AddWatchListViewModel>();
   UpdateMovieViewModel updateMovieViewModel = getIt<UpdateMovieViewModel>();
 
@@ -110,6 +111,13 @@ class _PopularMoviesWidgetState extends State<PopularMoviesWidget> {
                   left: 7.sp,
                   child: InkWell(
                     onTap: ()async{
+                     // bool isExist = await Firestore.checkInFireBasetwo(widget.id);
+                     //  if(isExist == false) {
+                     //    setState(() {
+                     //      isAddedToWatchlist =false;
+                     //    });
+                     //  }
+                     //  print("hereeeeeeeeeeee$isExist");
                       print(widget.id);
                       setState(() {
                         isAddedToWatchlist = !isAddedToWatchlist;
@@ -123,7 +131,7 @@ class _PopularMoviesWidgetState extends State<PopularMoviesWidget> {
                           releaseData: widget.releaseDate,
                           isSelected: true,
                         );
-                        // isFav=  await MovieDao.checkInFireBase(movie.id!) ;
+
                         await addWatchListViewModel.addToWatchList(
                             movie: movie, id: authProvider.databaseUser!.id!);
 
@@ -131,6 +139,8 @@ class _PopularMoviesWidgetState extends State<PopularMoviesWidget> {
                         await updateMovieViewModel.updateMovie(
                             movie: movie, uid: authProvider.databaseUser!.id!);
                         // await MovieDao.updateMovie(movie);
+
+                        print(isAddedToWatchlist);
                       }
                     },
                     child: Stack(children: [

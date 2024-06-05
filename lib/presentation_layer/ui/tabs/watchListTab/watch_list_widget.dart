@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:untitled/DI/dI.dart';
 import 'package:untitled/data_layer/firebase/firebaseAuth.dart';
 import 'package:untitled/generated/assets.dart';
+import 'package:untitled/presentation_layer/ui/helpers/saveUserLogin.dart';
 import 'package:untitled/presentation_layer/ui/tabs/watchListTab/watchListViewModels/allMoviesInWatchListViewModel.dart';
 import 'package:untitled/presentation_layer/ui/tabs/watchListTab/watchListViewModels/deleteMovieViewModel.dart';
 
@@ -49,9 +50,16 @@ class _WatchListWidgetState extends State<WatchListWidget> {
   Widget build(BuildContext context) {
 
     var authProvider = Provider.of<FirebaseAuthUser>(context, listen: false);
+    if (authProvider.databaseUser != null && authProvider.databaseUser!.id != null) {
+      allMoviesViewModel.getAllMoviesInWatchList(
+          uid: authProvider.databaseUser!.id!);
+    }
+    else
+      {
+        allMoviesViewModel.getAllMoviesInWatchList(
+            uid: SaveUserLogin.getId());
+      }
 
-    allMoviesViewModel.getAllMoviesInWatchList(
-        uid: authProvider.databaseUser!.id!);
     // deleteMovieViewModel.deleteFromWatchList(movieId: widget.id, uid: authProvider.databaseUser!.id!);
     return MultiBlocProvider(
       providers: [
@@ -63,8 +71,9 @@ class _WatchListWidgetState extends State<WatchListWidget> {
         ),
       ],
       child: Container(
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(22) ,  color: Colors.black,),
         width: double.infinity,
-        color: Colors.black,
+
         child: Padding(
             padding: const EdgeInsets.only(top: 10, bottom: 10),
             child: Column(
@@ -178,10 +187,10 @@ class _WatchListWidgetState extends State<WatchListWidget> {
                 const SizedBox(
                   height: 10,
                 ),
-                const Divider(
-                  color: Colors.white,
-                  height: 2,
-                )
+                // const Divider(
+                //   color: Colors.white,
+                //   height: 2,
+                // )
               ],
             ),
           ),

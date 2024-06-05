@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:untitled/data_layer/firebase/firebaseAuth.dart';
+import 'package:untitled/presentation_layer/ui/helpers/saveUserLogin.dart';
+import 'package:untitled/presentation_layer/ui/registerScreen.dart';
 import 'package:untitled/presentation_layer/ui/widgets/CustomTextFormField.dart';
 
 import 'core/checkEmail.dart';
@@ -48,11 +51,12 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                const Text(
-                  "Sign in",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 32, fontWeight: FontWeight.w700),
-                ),
+                Image.asset("assests/images/log-in.png", height: 100.h,width: 120.w,color:Colors.black ,),
+                // const Text(
+                //   "Sign in",
+                //   textAlign: TextAlign.center,
+                //   style: TextStyle(fontSize: 32, fontWeight: FontWeight.w700),
+                // ),
                 SizedBox(
                   height: 10,
                 ),
@@ -95,10 +99,15 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: const Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Text(
-                        "Sign in",
+                        "Login",
                         style: TextStyle(color: Colors.white, fontSize: 20),
                       ),
-                    ))
+                    )),
+                SizedBox(height: 10.h,),
+                InkWell(onTap: (){
+                  Navigator.pushReplacementNamed(context, RegisterScreen.routeName);
+                },
+                    child: Text("Don't have account.",textAlign: TextAlign.center, style:  TextStyle(fontSize: 15.sp, fontWeight: FontWeight.w500),)),
               ],
             ),
           ),
@@ -114,5 +123,9 @@ class _LoginScreenState extends State<LoginScreen> {
     }
     await authProvider.login(
         emailController.text, passwordController.text, context);
+    SaveUserLogin.setUserData(emailController.text, passwordController.text);
+    SaveUserLogin.setId(authProvider.databaseUser!.id!);
+
+
   }
 }

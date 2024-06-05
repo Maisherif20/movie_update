@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:untitled/DI/dI.dart';
 import 'package:untitled/data_layer/firebase/firebaseAuth.dart';
+import 'package:untitled/presentation_layer/ui/helpers/saveUserLogin.dart';
 import 'package:untitled/presentation_layer/ui/tabs/watchListTab/watch_list_widget.dart';
 import 'package:untitled/presentation_layer/ui/tabs/watchListTab/watchListViewModels/listenMovieViewModel.dart';
 
@@ -32,7 +33,12 @@ class _WatchListViewState extends State<WatchListView> {
   @override
   Widget build(BuildContext context) {
     var authProvider = Provider.of<FirebaseAuthUser>(context, listen: false);
-    listenForMovieViewModel.listenForMovie(uid: authProvider.databaseUser!.id!);
+    if (authProvider.databaseUser != null && authProvider.databaseUser!.id != null) {
+      listenForMovieViewModel.listenForMovie(uid: authProvider.databaseUser!.id!);
+    }
+    else{
+      listenForMovieViewModel.listenForMovie(uid: SaveUserLogin.getId());
+    }
     return BlocBuilder<ListenForMovieViewModel, WatchListState>(
         bloc: listenForMovieViewModel,
         builder: (context, state) {
@@ -55,11 +61,14 @@ class _WatchListViewState extends State<WatchListView> {
               {
                 var movieList = state.movie;
                 return ListView.builder(
-                  itemBuilder: (context, index) => WatchListWidget(
-                      title: movieList[index].title!,
-                      id: movieList[index].id.toString(),
-                      image: movieList[index].posterImagePath!,
-                      releaseDate: movieList[index].releaseData!),
+                  itemBuilder: (context, index) => Padding(
+                    padding: EdgeInsets.only(bottom: 10 ,left: 10, right: 10),
+                    child: WatchListWidget(
+                        title: movieList[index].title!,
+                        id: movieList[index].id.toString(),
+                        image: movieList[index].posterImagePath!,
+                        releaseDate: movieList[index].releaseData!),
+                  ),
                   itemCount: movieList.length,
                 );
               }

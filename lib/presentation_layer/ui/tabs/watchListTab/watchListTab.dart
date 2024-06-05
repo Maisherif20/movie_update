@@ -13,16 +13,16 @@ class WatchListTab extends StatelessWidget {
       child: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-           Padding(
-            padding: EdgeInsets.only(left: 15),
-            child: Text(
-              'Watch List',
-              style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.white),
-            ),
-          ),
+          //  Padding(
+          //   padding: EdgeInsets.only(left: 15),
+          //   child: Text(
+          //     'Watch List',
+          //     style: TextStyle(
+          //         fontSize: 30,
+          //         fontWeight: FontWeight.w400,
+          //         color: Colors.white),
+          //   ),
+          // ),
           Expanded(child: WatchListView()),
         ],
       ),
